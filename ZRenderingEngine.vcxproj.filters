@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Library-source">
+      <UniqueIdentifier>{d276ce69-dbcf-4c74-89b1-c9b8f0c7d6b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library-header">
+      <UniqueIdentifier>{0a86bdf6-b442-41ab-9aca-ce62dcc9b74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RenderingEngine-header">
+      <UniqueIdentifier>{cfb703d4-5a22-4ed6-be45-f5d7ac6e16b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RenderingEngine-source">
+      <UniqueIdentifier>{0d4d9061-c4e4-4960-9535-7f1978164d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{4893fde4-b5af-4290-aa64-3507692f8856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library-header\Shader-Structures">
+      <UniqueIdentifier>{3a3c70a0-48e3-42b0-b5be-034e2b9532dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Library-header\DirectX">
+      <UniqueIdentifier>{2db73f40-1816-49b1-a0ae-aa9b30608a61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainEntry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineClock.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineException.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTime.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingEngine.hpp">
+      <Filter>Header Files\RenderingEngine-header</Filter>
+    </ClInclude>
+    <ClInclude Include="RTTI.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableComponent.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSComponent.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineGlobalVariables.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardComponent.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseComponent.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceProvider.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorHelper.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="MainPassConstantBuffer.hpp">
+      <Filter>Header Files\Library-header\Shader-Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX11Helper.hpp">
+      <Filter>Header Files\Library-header\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainEntry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineClock.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineException.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingEngine.cpp">
+      <Filter>Source Files\RenderingEngine-source</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableComponent.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSComponent.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardComponent.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseComponent.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceProvider.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorHelper.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="MathHelper.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectX11Helper.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ZRenderingEngine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ZRenderingEngine.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
