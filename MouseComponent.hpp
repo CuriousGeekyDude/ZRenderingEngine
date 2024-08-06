@@ -52,9 +52,6 @@ namespace Library
 		int Y() const;
 		int Wheel() const;
 
-		int GetPositionX() const;
-		int GetPositionY() const;
-
 		
 		bool IsButtonUp(MouseButtons button) const;
 		bool IsButtonDown(MouseButtons button) const;
@@ -74,9 +71,6 @@ namespace Library
 
 		DirectX::Mouse::State m_currentState{};
 		DirectX::Mouse::State m_lastState{};
-
-		int m_fpsX{};
-		int m_fpsY{};
 
 		Camera* m_camera{};
 	};

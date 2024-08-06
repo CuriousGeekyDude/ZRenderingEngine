@@ -14,11 +14,6 @@ namespace Library
 		SetLens(0.25f * MathHelper::Pi, 1.0f, 1.0f, 10000.0f);
 	}
 
-	Camera::Camera() : Component()
-	{
-		SetLens(0.25f * MathHelper::Pi, 1.0f, 1.0f, 10000.0f);
-	}
-
 	Camera::~Camera()
 	{
 	}

@@ -114,6 +114,12 @@
     <ClInclude Include="Mesh.hpp">
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
+    <ClInclude Include="ModelMaterial.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainEntry.cpp">
@@ -171,6 +177,12 @@
       <Filter>Source Files\Library-source</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelMaterial.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="StringHelper.cpp">
       <Filter>Source Files\Library-source</Filter>
     </ClCompile>
   </ItemGroup>

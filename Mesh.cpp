@@ -2,12 +2,16 @@
 
 #include "Mesh.hpp"
 #include <assimp/scene.h>
+#include "Model.hpp"
 
 namespace Library
 {
-	Mesh::Mesh(aiMesh& l_aiMesh)
+	Mesh::Mesh(Model& l_model,aiMesh& l_aiMesh)
 		:m_name(l_aiMesh.mName.C_Str())
 	{
+
+		m_material = l_model.GetMaterials()[l_aiMesh.mMaterialIndex].get();
+
 		using namespace DirectX;
 		//Vertices
 		{

@@ -5,6 +5,9 @@
 #include "MainPassConstantBuffer.hpp"
 #include <d3d11_1.h>
 #include "Model.hpp"
+#include <map>
+#include <fstream>
+#include "EngineGlobalVariables.hpp"
 
 namespace Library
 {
@@ -43,8 +46,7 @@ namespace RenderingEngine
 		ID3D11Buffer* m_mainPassCB{};
 
 		Library::ShaderStructures::MainPassConstantBuffer m_mainPassCBData{};
-
-
-		Library::Model m_modelTest{ GetEngine(), "C:/Users/farhan/source/repos/Z/ZRenderingEngine/Content/3DModels/gltf2.0/AntiqueCamera/glTF/AntiqueCamera.gltf" };
+		std::map<std::string, Library::Model> m_models{};
+		std::ifstream m_modelNamesFile{ EngineGlobalVariables::lv_modelNamesFile };
 	};
 }

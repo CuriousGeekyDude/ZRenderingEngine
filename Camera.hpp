@@ -17,7 +17,6 @@ namespace Library
 	public:
 
 		Camera(Engine& l_engine);
-		Camera();
 		~Camera();
 
 		// Get/Set world camera position.

@@ -15,7 +15,6 @@ namespace Library
 {
 	Library::RTTI_DEFINITIONS(Node);
 
-	Node::Node() = default;
 	Node::Node(Library::Engine& l_engine, Library::Camera& l_camera, const DirectX::XMFLOAT3&l_worldTransformation,
 		Mesh* l_mesh) :
 		DrawableComponent(l_engine, l_camera), m_worldTransformation(l_worldTransformation), m_mesh(l_mesh) {}
@@ -48,12 +47,12 @@ namespace Library
 
 		//Vertex buffer created
 		{
-			CreateImmutableVertexBuffer<XMFLOAT3>(m_engine->Direct3DDevice(), lv_vertices, &m_vertexBuffer);
+			CreateImmutableVertexBuffer<XMFLOAT3>(m_device, lv_vertices, &m_vertexBuffer);
 		}
 
 		//Index buffer created
 		{
-			CreateIndexBuffer<unsigned int>(m_engine->Direct3DDevice(), lv_indices, &m_indexBuffer);
+			CreateIndexBuffer<unsigned int>(m_device, lv_indices, &m_indexBuffer);
 	
 		}
 
@@ -70,7 +69,7 @@ namespace Library
 			CreateInputElementDescription(&lv_inputDesc, "POSITIONL", 0, DXGI_FORMAT_R32G32B32_FLOAT,
 				0, 0, D3D11_INPUT_PER_VERTEX_DATA);
 
-			lv_hr = m_engine->Direct3DDevice()->CreateInputLayout(&lv_inputDesc, 1, m_vsShaderBytecode->GetBufferPointer(), m_vsShaderBytecode->GetBufferSize(), &m_inputLayoutObject);
+			lv_hr = m_device->CreateInputLayout(&lv_inputDesc, 1, m_vsShaderBytecode->GetBufferPointer(), m_vsShaderBytecode->GetBufferSize(), &m_inputLayoutObject);
 			ThrowIfFailed(lv_hr, "CreateInputLayout() failed.\n");
 
 		}
@@ -98,38 +97,38 @@ namespace Library
 		{
 			UINT lv_stride{ sizeof(XMFLOAT3) }, lv_offset{ 0 };
 
-			m_engine->Direct3DDeviceContext()->IASetVertexBuffers(0, 1, &m_vertexBuffer, &lv_stride, &lv_offset);
-			m_engine->Direct3DDeviceContext()->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, lv_offset);
-			m_engine->Direct3DDeviceContext()->IASetInputLayout(m_inputLayoutObject);
-			m_engine->Direct3DDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			m_deviceContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &lv_stride, &lv_offset);
+			m_deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, lv_offset);
+			m_deviceContext->IASetInputLayout(m_inputLayoutObject);
+			m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		}
 
 		//Setup vertex shader stage
 		{
-			ID3D11Buffer* lv_cbs = const_cast<ID3D11Buffer*>(m_engine->GetServiceProvider().GetService("mainPassCB"));
-			m_engine->Direct3DDeviceContext()->VSSetShader(m_vsShader, nullptr, 0);
-			m_engine->Direct3DDeviceContext()->VSSetConstantBuffers(0, 1,
+			ID3D11Buffer* lv_cbs = const_cast<ID3D11Buffer*>(m_serviceProvider.GetService("mainPassCB"));
+			m_deviceContext->VSSetShader(m_vsShader, nullptr, 0);
+			m_deviceContext->VSSetConstantBuffers(0, 1,
 				&lv_cbs);
 		}
 
-		DisableShaders(m_engine->Direct3DDeviceContext());
+		DisableShaders(m_deviceContext);
 
 		//Setup pixel shader stage
 		{
-			ID3D11Buffer* lv_cbs = const_cast<ID3D11Buffer*>(m_engine->GetServiceProvider().GetService("mainPassCB"));
-			m_engine->Direct3DDeviceContext()->PSSetShader(m_psShader, nullptr, 0);
-			m_engine->Direct3DDeviceContext()->PSSetConstantBuffers(0, 1,
+			ID3D11Buffer* lv_cbs = const_cast<ID3D11Buffer*>(m_serviceProvider.GetService("mainPassCB"));
+			m_deviceContext->PSSetShader(m_psShader, nullptr, 0);
+			m_deviceContext->PSSetConstantBuffers(0, 1,
 				&lv_cbs);
 		}
 		
 		if (true == m_wireframeEnabled) {
-			m_engine->Direct3DDeviceContext()->RSSetState(m_rasterizerStates["wireframe"]);
+			m_deviceContext->RSSetState(m_rasterizerStates["wireframe"]);
 		}
 		else {
-			m_engine->Direct3DDeviceContext()->RSSetState(m_rasterizerStates["solid"]);
+			m_deviceContext->RSSetState(m_rasterizerStates["solid"]);
 		}
 
-		m_engine->Direct3DDeviceContext()->DrawIndexedInstanced(m_mesh->m_indices.size(), 1, 0, 0, 0);
+		m_deviceContext->DrawIndexedInstanced(m_mesh->m_indices.size(), 1, 0, 0, 0);
 	}
 
 	void Node::CreateVsPsShaders(const std::wstring& l_fullpathFile)
@@ -148,11 +147,11 @@ namespace Library
 
 		ThrowIfFailed(lv_hr, "Pixel shader failed to compile.");
 
-		lv_hr = m_engine->Direct3DDevice()->CreateVertexShader(m_vsShaderBytecode->GetBufferPointer(), m_vsShaderBytecode->GetBufferSize(),
+		lv_hr = m_device->CreateVertexShader(m_vsShaderBytecode->GetBufferPointer(), m_vsShaderBytecode->GetBufferSize(),
 			nullptr, &m_vsShader);
 		ThrowIfFailed(lv_hr, "CreateVertexShader() failed.");
 
-		lv_hr = m_engine->Direct3DDevice()->CreatePixelShader(m_psShaderBytecode->GetBufferPointer(),
+		lv_hr = m_device->CreatePixelShader(m_psShaderBytecode->GetBufferPointer(),
 			m_psShaderBytecode->GetBufferSize(), nullptr, &m_psShader);
 		ThrowIfFailed(lv_hr, "CreatePixelShader() failed.");
 
@@ -164,7 +163,7 @@ namespace Library
 		using namespace Library;
 
 		ID3D11RasterizerState* lv_rasterState{};
-		DirectX11Helper::CreateRasterizerState(m_engine->Direct3DDevice(), l_fillMode, l_cullMode, l_orientation, &lv_rasterState);
+		DirectX11Helper::CreateRasterizerState(m_device, l_fillMode, l_cullMode, l_orientation, &lv_rasterState);
 
 		if (l_fillMode == D3D11_FILL_SOLID) {
 			m_rasterizerStates.insert(std::pair<std::string, ID3D11RasterizerState*>("solid", lv_rasterState));

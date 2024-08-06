@@ -47,7 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         lv_renderer->Run();
     }
-    catch (EngineException l_ex)
+    catch (const EngineException& l_ex)
     {
         MessageBox(lv_renderer->WindowHandle(), l_ex.whatw().c_str(),
             lv_renderer->WindowTitle().c_str(), MB_ABORTRETRYIGNORE);

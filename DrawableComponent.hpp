@@ -2,6 +2,7 @@
 
 
 #include "Component.hpp"
+#include <d3d11_1.h>
 
 namespace Library
 {
@@ -17,7 +18,6 @@ namespace Library
 
 		DrawableComponent(Engine& l_engine);
 		DrawableComponent(Engine& l_engine, Camera& l_camera);
-		DrawableComponent();
 		DrawableComponent(const DrawableComponent&) = delete;
 		DrawableComponent& operator=(const DrawableComponent&) = delete;
 
@@ -32,6 +32,8 @@ namespace Library
 
 	protected:
 		Camera* m_camera{};
+		ID3D11Device1* m_device{};
+		ID3D11DeviceContext1* m_deviceContext{};
 		bool m_visible{true};
 	};
 }

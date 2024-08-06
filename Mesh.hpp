@@ -4,7 +4,6 @@
 #include <DirectXMath.h>
 #include <vector>
 #include <memory>
-#include "Model.hpp"
 #include "Node.hpp"
 
 struct aiMesh;
@@ -13,15 +12,17 @@ struct aiMesh;
 namespace Library
 {
 
+	class ModelMaterial;
+	class Model;
+
 	class Mesh
 	{
 		friend class Model;
 		friend class Node;
 
 	public:
-		Mesh(aiMesh&);
+		Mesh(Model&,aiMesh&);
 
-		//Mesh(Model&, ModelMaterial*);
 
 		
 		Mesh(const Mesh&) = delete;
@@ -40,7 +41,7 @@ namespace Library
 
 	private:
 
-		//ModelMaterial* m_material{};
+		ModelMaterial* m_material{};
 		std::string m_name{};
 		std::vector<DirectX::XMFLOAT3> m_vertices{};
 		std::vector<DirectX::XMFLOAT3> m_normals{};

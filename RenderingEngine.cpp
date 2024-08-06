@@ -24,8 +24,6 @@ namespace RenderingEngine
 	void ZRenderingEngine::Initialize()
 	{
 		using namespace Library;
-		
-
 
 
 		m_components.emplace_back(std::make_unique<FPSComponent>(*this));
@@ -37,8 +35,17 @@ namespace RenderingEngine
 		m_components.emplace_back(std::make_unique<Camera>(*this));
 		m_serviceProvider.AddService(((Camera*)m_components[3].get())->TypeIdClass(), (void*)m_components[3].get());
 
-		for (auto& l_mesh : m_modelTest.GetMeshes()) {
-			m_components.emplace_back(std::make_unique<Node>(*this, DirectX::XMFLOAT3{}, l_mesh.get()));
+		std::string lv_modelName{};
+		while (m_modelNamesFile >> lv_modelName) {
+			std::string lv_modelFullPath{ EngineGlobalVariables::lv_modelsFolderPath + lv_modelName + "/gltf/" + lv_modelName + ".gltf" };
+			Model lv_model{ GetEngine(), lv_modelFullPath };
+			m_models.emplace(std::move(lv_modelName), std::move(lv_model));
+		}
+
+		for (auto& l_model : m_models) {
+			for (auto& l_mesh : l_model.second.GetMeshes()) {
+				m_components.emplace_back(std::make_unique<Node>(*this, DirectX::XMFLOAT3{}, l_mesh.get()));
+			}
 		}
 
 
@@ -47,7 +54,7 @@ namespace RenderingEngine
 			DirectX11Helper::CreateConstantBuffer<ShaderStructures::MainPassConstantBuffer>(m_mainPassCBData,
 				&m_mainPassCB, Direct3DDevice(), 7 * 16 * sizeof(float), D3D11_USAGE_DYNAMIC,
 				D3D11_CPU_ACCESS_WRITE);
-			
+
 
 			m_serviceProvider.AddService("mainPassCB", m_mainPassCB);
 		}
@@ -79,7 +86,7 @@ namespace RenderingEngine
 		Library::ShaderStructures::MainPassConstantBuffer* lv_mainPassCBData =
 			(Library::ShaderStructures::MainPassConstantBuffer*)lv_mappedSub.pData;
 
-		
+
 		{
 			lv_mainPassCBData->ViewProj = m_mainPassCBData.ViewProj;
 			lv_mainPassCBData->View = m_mainPassCBData.View;
@@ -106,13 +113,13 @@ namespace RenderingEngine
 	void ZRenderingEngine::Draw(const Library::EngineTime& l_engineTime)
 	{
 		m_direct3DDeviceContext->ClearRenderTargetView(m_renderTargetView, m_defaultBackGroundColor);
-		m_direct3DDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL 
+		m_direct3DDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL
 			, 1.f, 0);
 
 		Library::Engine::Draw(l_engineTime);
 
 		HRESULT lv_hr = m_swapChain->Present(0, 0);
-		
+
 		Library::ThrowIfFailed(lv_hr, "IDXGISwapChain::Present() failed.\n");
 
 	}
@@ -181,5 +188,4 @@ namespace RenderingEngine
 			m_camera->Strafe(-lv_multiplier * dt);
 		}
 	}
-
 }

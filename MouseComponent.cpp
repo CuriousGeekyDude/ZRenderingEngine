@@ -20,10 +20,10 @@ namespace Library
 		return sMouse.get();
 	}
 
-	MouseComponent::MouseComponent(Engine& game, MouseModes mode) :
-		Component(game)
+	MouseComponent::MouseComponent(Engine& l_engine, MouseModes mode) :
+		Component(l_engine)
 	{
-		sMouse->SetWindow(m_engine->WindowHandle());
+		sMouse->SetWindow(l_engine.WindowHandle());
 		sMouse->SetMode(static_cast<Mouse::Mode>(mode));
 	}
 
@@ -41,9 +41,7 @@ namespace Library
 	{
 		m_currentState = sMouse->GetState();
 		m_lastState = m_currentState;
-		m_fpsX = m_currentState.x;
-		m_fpsY = m_currentState.y;
-		m_camera = (Camera*)m_engine->GetServiceProvider().GetService(Camera::TypeIdClass());
+		m_camera = (Camera*)m_serviceProvider.GetService(Camera::TypeIdClass());
 	}
 
 	void MouseComponent::Update(const EngineTime&)
@@ -56,16 +54,6 @@ namespace Library
 
 		m_camera->Pitch(dy);
 		m_camera->RotateY(dx);
-
-		int lv_tmpX = m_fpsX + m_currentState.x;
-		int lv_tmpY = m_fpsY + m_currentState.y;
-
-		if (0 <= lv_tmpX && lv_tmpX <= m_engine->ScreenWidth()-1) {
-			m_fpsX += m_currentState.x;
-		}
-		if (0 <= lv_tmpY && lv_tmpY <= m_engine->ScreenHeight()-1) {
-			m_fpsY += m_currentState.y;
-		}
 	}
 
 	void MouseComponent::SetWindow(HWND window)
@@ -86,16 +74,6 @@ namespace Library
 	int MouseComponent::Wheel() const
 	{
 		return m_currentState.scrollWheelValue;
-	}
-
-	int MouseComponent::GetPositionX() const
-	{
-		return m_fpsX;
-	}
-
-	int MouseComponent::GetPositionY() const
-	{
-		return m_fpsY;
 	}
 
 

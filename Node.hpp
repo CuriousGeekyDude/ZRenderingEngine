@@ -24,7 +24,6 @@ namespace Library
 		RTTI_DECLARATIONS(Node, DrawableComponent);
 
 	public:
-		Node();
 		Node(Library::Engine&, Library::Camera&, const DirectX::XMFLOAT3&, Mesh* l_mesh);
 		Node(Library::Engine&, const DirectX::XMFLOAT3&, Mesh* l_mesh);
 
