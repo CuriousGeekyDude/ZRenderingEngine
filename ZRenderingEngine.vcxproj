@@ -137,6 +137,7 @@
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="EngineClock.hpp" />
     <ClInclude Include="EngineGlobalVariables.hpp" />
+    <ClInclude Include="Entity.hpp" />
     <ClInclude Include="FPSComponent.hpp" />
     <ClInclude Include="KeyboardComponent.hpp" />
     <ClInclude Include="MainEntry.h" />

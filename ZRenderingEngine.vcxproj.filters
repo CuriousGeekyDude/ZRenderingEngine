@@ -120,6 +120,9 @@
     <ClInclude Include="StringHelper.hpp">
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainEntry.cpp">
