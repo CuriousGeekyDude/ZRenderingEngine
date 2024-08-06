@@ -34,6 +34,12 @@
     <Filter Include="Header Files\Library-header\DirectX">
       <UniqueIdentifier>{2db73f40-1816-49b1-a0ae-aa9b30608a61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Library-header\Components">
+      <UniqueIdentifier>{ad0fd01d-98f5-4d1e-96a8-bed9ec9e8670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library-source\Components">
+      <UniqueIdentifier>{e7c4276d-48f5-4735-9890-5c5e7771287b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -69,22 +75,7 @@
     <ClInclude Include="RTTI.hpp">
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
-    <ClInclude Include="Component.hpp">
-      <Filter>Header Files\Library-header</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableComponent.hpp">
-      <Filter>Header Files\Library-header</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSComponent.hpp">
-      <Filter>Header Files\Library-header</Filter>
-    </ClInclude>
     <ClInclude Include="EngineGlobalVariables.hpp">
-      <Filter>Header Files\Library-header</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyboardComponent.hpp">
-      <Filter>Header Files\Library-header</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseComponent.hpp">
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
     <ClInclude Include="ServiceProvider.hpp">
@@ -121,7 +112,22 @@
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
     <ClInclude Include="Entity.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Header Files\Library-header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableComponent.hpp">
+      <Filter>Header Files\Library-header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSComponent.hpp">
+      <Filter>Header Files\Library-header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardComponent.hpp">
+      <Filter>Header Files\Library-header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseComponent.hpp">
+      <Filter>Header Files\Library-header\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,21 +148,6 @@
     </ClCompile>
     <ClCompile Include="RenderingEngine.cpp">
       <Filter>Source Files\RenderingEngine-source</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Library-source</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawableComponent.cpp">
-      <Filter>Source Files\Library-source</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSComponent.cpp">
-      <Filter>Source Files\Library-source</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardComponent.cpp">
-      <Filter>Source Files\Library-source</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseComponent.cpp">
-      <Filter>Source Files\Library-source</Filter>
     </ClCompile>
     <ClCompile Include="ServiceProvider.cpp">
       <Filter>Source Files\Library-source</Filter>
@@ -187,6 +178,21 @@
     </ClCompile>
     <ClCompile Include="StringHelper.cpp">
       <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Library-source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableComponent.cpp">
+      <Filter>Source Files\Library-source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSComponent.cpp">
+      <Filter>Source Files\Library-source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardComponent.cpp">
+      <Filter>Source Files\Library-source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseComponent.cpp">
+      <Filter>Source Files\Library-source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

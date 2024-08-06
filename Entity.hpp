@@ -39,9 +39,10 @@ namespace Library
 		}
 
 
-		const std::vector<std::unique_ptr<Component>>& GetComponents() const { return m_components; };
+
+		const std::vector<std::shared_ptr<Component>>& GetComponents() const { return m_components; };
 
 	private:
-		std::vector<std::unique_ptr<Component>> m_components{};
+		std::vector<std::shared_ptr<Component>> m_components{};
 	};
 }
