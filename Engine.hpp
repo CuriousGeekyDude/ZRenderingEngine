@@ -10,6 +10,7 @@
 #include "EngineTime.hpp"
 #include "ServiceProvider.hpp"
 #include "Component.hpp"
+#include "InputEventHandler.hpp"
 
 namespace Library
 {
@@ -40,6 +41,8 @@ namespace Library
 		virtual void Update(const EngineTime& l_engineTime);
 		virtual void Draw(const EngineTime& l_engineTime);
 
+		InputEventHandler& GetInputEventHandler();
+
 		ID3D11Device1* Direct3DDevice() const;
 		ID3D11DeviceContext1* Direct3DDeviceContext() const;
 		bool DepthBufferEnabled() const;
@@ -47,7 +50,6 @@ namespace Library
 		const std::vector<std::unique_ptr<Component>>& GetComponents() const;
 		const D3D11_TEXTURE2D_DESC& BackBufferDesc() const;
 		const D3D11_VIEWPORT& Viewport() const;
-		const ServiceProvider& GetServiceProvider() const;
 
 	protected:
 		virtual void InitializeWindow();
@@ -95,9 +97,12 @@ namespace Library
 		EngineTime m_engineTime{};
 
 
+		InputEventHandler m_inputEventHandler{};
+
+
 		std::vector<std::unique_ptr<Component>> m_components{};
 
-		ServiceProvider m_serviceProvider{};
+		
 
 	private:
 		POINT CenterWindow(int l_windowWidth, int l_windowHeight);

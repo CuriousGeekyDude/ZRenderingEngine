@@ -186,6 +186,12 @@ namespace Library
 	}
 
 
+	InputEventHandler& Engine::GetInputEventHandler()
+	{
+		return m_inputEventHandler;
+	}
+
+
 	void Engine::InitializeDirectX()
 	{
 		HRESULT lv_hr{};
@@ -345,11 +351,5 @@ namespace Library
 
 		ReleaseObject(m_direct3DDeviceContext);
 		UnregisterClass(m_windowClass.c_str(), m_window.hInstance);
-	}
-
-
-	const ServiceProvider& Engine::GetServiceProvider() const
-	{
-		return m_serviceProvider;
 	}
 }
