@@ -17,7 +17,7 @@ namespace Library
 	public:
 
 		DrawableComponent(Engine& l_engine);
-		DrawableComponent(Engine& l_engine, Camera& l_camera);
+		DrawableComponent(Engine& l_engine, std::shared_ptr<Camera>& l_camera);
 		DrawableComponent(const DrawableComponent&) = delete;
 		DrawableComponent& operator=(const DrawableComponent&) = delete;
 
@@ -26,12 +26,11 @@ namespace Library
 		bool IsVisible() const;
 		void SetVisible(bool l_truthValue);
 		Camera* GetCamera();
-		void SetCamera(Camera& l_camera);
 
 		virtual void Draw(const EngineTime&);
 
 	protected:
-		Camera* m_camera{};
+		std::shared_ptr<Camera> m_camera{};
 		ID3D11Device1* m_device{};
 		ID3D11DeviceContext1* m_deviceContext{};
 		bool m_visible{true};
