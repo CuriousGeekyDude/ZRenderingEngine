@@ -15,7 +15,7 @@ namespace Library
 {
 	Library::RTTI_DEFINITIONS(Node);
 
-	Node::Node(Library::Engine& l_engine, Library::Camera& l_camera, const DirectX::XMFLOAT3&l_worldTransformation,
+	Node::Node(Library::Engine& l_engine, std::shared_ptr<Library::Camera>& l_camera, const DirectX::XMFLOAT3&l_worldTransformation,
 		Mesh* l_mesh) :
 		DrawableComponent(l_engine, l_camera), m_worldTransformation(l_worldTransformation), m_mesh(l_mesh) {}
 	Node::Node(Library::Engine& l_engine, const DirectX::XMFLOAT3& l_worldTransformation, Mesh* l_mesh)
@@ -105,20 +105,18 @@ namespace Library
 
 		//Setup vertex shader stage
 		{
-			ID3D11Buffer* lv_cbs = const_cast<ID3D11Buffer*>(m_serviceProvider.GetService("mainPassCB"));
 			m_deviceContext->VSSetShader(m_vsShader, nullptr, 0);
 			m_deviceContext->VSSetConstantBuffers(0, 1,
-				&lv_cbs);
+				&m_updatePerFrameConstantBuffer);
 		}
 
 		DisableShaders(m_deviceContext);
 
 		//Setup pixel shader stage
 		{
-			ID3D11Buffer* lv_cbs = const_cast<ID3D11Buffer*>(m_serviceProvider.GetService("mainPassCB"));
 			m_deviceContext->PSSetShader(m_psShader, nullptr, 0);
 			m_deviceContext->PSSetConstantBuffers(0, 1,
-				&lv_cbs);
+				&m_updatePerFrameConstantBuffer);
 		}
 		
 		if (true == m_wireframeEnabled) {
@@ -173,5 +171,6 @@ namespace Library
 		}
 	}
 
+	void Node::SetPerFrameConstantBuffer(ID3D11Buffer* l_cb) { m_updatePerFrameConstantBuffer = l_cb; }
 
 }

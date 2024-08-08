@@ -3,6 +3,7 @@
 #include "Engine.hpp"
 #include "EngineTime.hpp"
 #include "MouseComponent.hpp"
+#include "KeyboardComponent.hpp"
 #include "Camera.hpp"
 
 
@@ -20,11 +21,12 @@ namespace Library
 		return sMouse.get();
 	}
 
-	MouseComponent::MouseComponent(Engine& l_engine, MouseModes mode) :
-		Component(l_engine)
+	MouseComponent::MouseComponent(Engine& l_engine, Camera* l_camera, KeyboardComponent* l_keyboard ,MouseModes mode) :
+		Component(l_engine), m_camera(l_camera), m_keyboard(l_keyboard)
 	{
 		sMouse->SetWindow(l_engine.WindowHandle());
 		sMouse->SetMode(static_cast<Mouse::Mode>(mode));
+
 	}
 
 	const Mouse::State& MouseComponent::CurrentState() const
@@ -44,8 +46,11 @@ namespace Library
 		m_camera = (Camera*)m_serviceProvider.GetService(Camera::TypeIdClass());
 	}
 
-	void MouseComponent::Update(const EngineTime&)
+	void MouseComponent::Update(const EngineTime& l_engineTime)
 	{
+		using namespace Library;
+		using namespace DirectX;
+
 		m_lastState = m_currentState;
 		m_currentState = sMouse->GetState();
 
@@ -54,6 +59,28 @@ namespace Library
 
 		m_camera->Pitch(dy);
 		m_camera->RotateY(dx);
+
+		const float dt = l_engineTime.ElapsedEngineTimeSeconds().count();
+		const float lv_multiplier{ 10.f };
+
+		if (true == m_keyboard->IsKeyDown(Keys::W) || true == m_keyboard->IsKeyHeldDown(Keys::W)) {
+			m_camera->Walk(lv_multiplier * dt);
+
+		}
+
+		if (true == m_keyboard->IsKeyDown(Keys::D) || true == m_keyboard->IsKeyHeldDown(Keys::D)) {
+			m_camera->Strafe(lv_multiplier * dt);
+
+		}
+
+		if (true == m_keyboard->IsKeyDown(Keys::S) || true == m_keyboard->IsKeyHeldDown(Keys::S)) {
+			m_camera->Walk(-lv_multiplier * dt);
+
+		}
+
+		if (true == m_keyboard->IsKeyDown(Keys::A) || true == m_keyboard->IsKeyHeldDown(Keys::A)) {
+			m_camera->Strafe(-lv_multiplier * dt);
+		}
 	}
 
 	void MouseComponent::SetWindow(HWND window)

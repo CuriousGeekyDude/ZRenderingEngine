@@ -232,7 +232,6 @@ namespace Library
 		const DirectX::Mouse::State& CurrentStateMouse() const;
 		const DirectX::Mouse::State& LastStateMouse() const;
 
-		virtual void Initialize() override;
 		virtual void Update(const EngineTime&) override;
 		void SetWindow(HWND window);
 
@@ -260,7 +259,6 @@ namespace Library
 		const DirectX::Keyboard::State& LastStateKeyboard() const;
 
 		virtual void Initialize() override;
-		virtual void Update(const EngineTime& gameTime) override;
 
 		bool IsKeyUp(Keys key) const;
 		bool IsKeyDown(Keys key) const;
@@ -283,7 +281,8 @@ namespace Library
 
 		DirectX::Mouse::State m_currentStateMouse{};
 		DirectX::Mouse::State m_lastStateMouse{};
+		InputEventHandler& m_inputEventHandler;
 
-		Camera* m_camera{};
+
 	};
 }

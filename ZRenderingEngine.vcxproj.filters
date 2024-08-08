@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Library-source\Components">
       <UniqueIdentifier>{e7c4276d-48f5-4735-9890-5c5e7771287b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Library-header\Entities">
+      <UniqueIdentifier>{cbae21fe-e047-4a14-8376-afdf389510e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Library-source\Entities">
+      <UniqueIdentifier>{3c3e0e22-174b-4bae-8283-d7a5647b0324}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -78,9 +84,6 @@
     <ClInclude Include="EngineGlobalVariables.hpp">
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
-    <ClInclude Include="ServiceProvider.hpp">
-      <Filter>Header Files\Library-header</Filter>
-    </ClInclude>
     <ClInclude Include="VectorHelper.hpp">
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
@@ -111,9 +114,6 @@
     <ClInclude Include="StringHelper.hpp">
       <Filter>Header Files\Library-header</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.hpp">
-      <Filter>Header Files\Library-header</Filter>
-    </ClInclude>
     <ClInclude Include="Component.hpp">
       <Filter>Header Files\Library-header\Components</Filter>
     </ClInclude>
@@ -123,11 +123,23 @@
     <ClInclude Include="FPSComponent.hpp">
       <Filter>Header Files\Library-header\Components</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardComponent.hpp">
+    <ClInclude Include="InputComponent.hpp">
       <Filter>Header Files\Library-header\Components</Filter>
     </ClInclude>
-    <ClInclude Include="MouseComponent.hpp">
+    <ClInclude Include="TransformCameraComponent.hpp">
       <Filter>Header Files\Library-header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="InputEventHandler.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.hpp">
+      <Filter>Header Files\Library-header</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.hpp">
+      <Filter>Header Files\Library-header\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableEntity.hpp">
+      <Filter>Header Files\Library-header\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -148,9 +160,6 @@
     </ClCompile>
     <ClCompile Include="RenderingEngine.cpp">
       <Filter>Source Files\RenderingEngine-source</Filter>
-    </ClCompile>
-    <ClCompile Include="ServiceProvider.cpp">
-      <Filter>Source Files\Library-source</Filter>
     </ClCompile>
     <ClCompile Include="VectorHelper.cpp">
       <Filter>Source Files\Library-source</Filter>
@@ -188,11 +197,29 @@
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Source Files\Library-source\Components</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardComponent.cpp">
+    <ClCompile Include="TransformCameraComponent.cpp">
       <Filter>Source Files\Library-source\Components</Filter>
     </ClCompile>
-    <ClCompile Include="MouseComponent.cpp">
+    <ClCompile Include="InputEventHandler.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
       <Filter>Source Files\Library-source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdatePerFrameBuffersComponent.hpp">
+      <Filter>Header Files\Library-header\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdatePerFrameBuffersComponent.cpp">
+      <Filter>Source Files\Library-source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineGlobalVariables.cpp">
+      <Filter>Source Files\Library-source</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Library-source\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableEntity.cpp">
+      <Filter>Source Files\Library-source\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

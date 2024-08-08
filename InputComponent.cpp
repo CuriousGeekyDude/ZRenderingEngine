@@ -2,10 +2,12 @@
 
 #include "InputComponent.hpp"
 #include "Engine.hpp"
-
+#include <DirectXMath.h>
 
 namespace Library
 {
+	RTTI_DEFINITIONS(InputComponent);
+
 	std::unique_ptr<DirectX::Mouse> InputComponent::sMouse = std::make_unique<DirectX::Mouse>();
 
 	DirectX::Mouse* InputComponent::Mouse()
@@ -14,11 +16,10 @@ namespace Library
 	}
 
 	InputComponent::InputComponent(Engine& l_engine, MouseModes mode) :
-		Component(l_engine)
+		Component(l_engine), m_inputEventHandler(l_engine.GetInputEventHandler())
 	{
 		sMouse->SetWindow(l_engine.WindowHandle());
 		sMouse->SetMode(static_cast<DirectX::Mouse::Mode>(mode));
-
 	}
 
 	const DirectX::Mouse::State& InputComponent::CurrentStateMouse() const
@@ -41,6 +42,7 @@ namespace Library
 
 	void InputComponent::Update(const EngineTime& l_engineTime)
 	{
+		using namespace DirectX;
 
 		m_lastStateKeyboard = m_currentStateKeyboard;
 		m_currentStateKeyboard = sKeyboard->GetState();
@@ -49,34 +51,39 @@ namespace Library
 		m_currentStateMouse = sMouse->GetState();
 
 
+		float dx = XMConvertToRadians(0.25f * static_cast<float>(m_currentStateMouse.x));
+		float dy = XMConvertToRadians(0.25f * static_cast<float>(m_currentStateMouse.y));
 
-		/*float dx = XMConvertToRadians(0.25f * static_cast<float>(m_currentState.x));
-		float dy = XMConvertToRadians(0.25f * static_cast<float>(m_currentState.y));
-
-		m_camera->Pitch(dy);
-		m_camera->RotateY(dx);
 
 		const float dt = l_engineTime.ElapsedEngineTimeSeconds().count();
 		const float lv_multiplier{ 10.f };
 
-		if (true == m_keyboard->IsKeyDown(Keys::W) || true == m_keyboard->IsKeyHeldDown(Keys::W)) {
-			m_camera->Walk(lv_multiplier * dt);
+
+		if (0 != dx || 0 != dy) {
+			m_inputEventHandler.ReceiveInput(dx, dy, dt, lv_multiplier, "");
+		}
+
+		if (true == IsKeyDown(Keys::W) || true == IsKeyHeldDown(Keys::W)) {
+			m_inputEventHandler.ReceiveInput(dx, dy, dt, lv_multiplier, "W");
+		}
+
+		if (true == IsKeyDown(Keys::D) || true == IsKeyHeldDown(Keys::D)) {
+			m_inputEventHandler.ReceiveInput(dx, dy, dt, lv_multiplier, "D");
 
 		}
 
-		if (true == m_keyboard->IsKeyDown(Keys::D) || true == m_keyboard->IsKeyHeldDown(Keys::D)) {
-			m_camera->Strafe(lv_multiplier * dt);
+		if (true == IsKeyDown(Keys::S) || true == IsKeyHeldDown(Keys::S)) {
+			m_inputEventHandler.ReceiveInput(dx, dy, dt, lv_multiplier, "S");
 
 		}
 
-		if (true == m_keyboard->IsKeyDown(Keys::S) || true == m_keyboard->IsKeyHeldDown(Keys::S)) {
-			m_camera->Walk(-lv_multiplier * dt);
-
+		if (true == IsKeyDown(Keys::A) || true == IsKeyHeldDown(Keys::A)) {
+			m_inputEventHandler.ReceiveInput(dx, dy, dt, lv_multiplier, "A");
 		}
 
-		if (true == m_keyboard->IsKeyDown(Keys::A) || true == m_keyboard->IsKeyHeldDown(Keys::A)) {
-			m_camera->Strafe(-lv_multiplier * dt);
-		}*/
+		if (true == IsKeyDown(Keys::Escape) || true == IsKeyHeldDown(Keys::Escape)) {
+			m_inputEventHandler.ReceiveInput(dx, dy, dt, lv_multiplier, "ESCAPE");
+		}
 	}
 
 	void InputComponent::SetWindow(HWND window)

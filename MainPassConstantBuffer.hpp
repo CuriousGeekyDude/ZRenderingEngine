@@ -18,8 +18,7 @@ namespace Library
 			XMFLOAT4X4 InvViewProj;
 			XMFLOAT3 EyePosW;
 			float cbPerObjectPad1;
-			XMFLOAT2 RenderTargetSize;
-			XMFLOAT2 InvRenderTargetSize;
+			
 			float NearZ;
 			float FarZ;
 			float TotalTime;
@@ -29,6 +28,9 @@ namespace Library
 			float cbPassPad1;
 			float cbPassPad2;
 			float cbPassPad3;
+			XMFLOAT4 cbPassPad4;
+			XMFLOAT4 cbPassPad5;
+			XMFLOAT4 cbPassPad6;
 		};
 	}
 }

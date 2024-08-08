@@ -24,6 +24,10 @@ namespace Library
 			m_camera->Strafe(-dt * l_multiplier);
 		}
 
+		if ("ESCAPE" == l_key) {
+			PostQuitMessage(0);
+		}
+
 	}
 
 	void TransformCameraComponent::Update(float x, float y)

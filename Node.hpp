@@ -24,7 +24,7 @@ namespace Library
 		RTTI_DECLARATIONS(Node, DrawableComponent);
 
 	public:
-		Node(Library::Engine&, Library::Camera&, const DirectX::XMFLOAT3&, Mesh* l_mesh);
+		Node(Library::Engine&, std::shared_ptr<Library::Camera>&, const DirectX::XMFLOAT3&, Mesh* l_mesh);
 		Node(Library::Engine&, const DirectX::XMFLOAT3&, Mesh* l_mesh);
 
 		void SetWireframe(bool);
@@ -32,6 +32,8 @@ namespace Library
 		virtual void Initialize() override;
 		virtual void Update(const Library::EngineTime&) override {};
 		virtual void Draw(const Library::EngineTime&) override;
+
+		void SetPerFrameConstantBuffer(ID3D11Buffer* l_cb);
 
 	protected:
 		void CreateRasterizerState(D3D11_FILL_MODE, D3D11_CULL_MODE, bool l_orientation);
@@ -45,7 +47,7 @@ namespace Library
 
 		ID3D11Buffer* m_vertexBuffer{};
 		ID3D11Buffer* m_indexBuffer{};
-
+		ID3D11Buffer* m_updatePerFrameConstantBuffer{};
 
 		ID3DBlob* m_vsShaderBytecode{};
 		ID3DBlob* m_psShaderBytecode{};

@@ -77,6 +77,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -91,6 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -106,6 +108,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,6 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,12 +138,14 @@
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="DirectX11Helper.hpp" />
     <ClInclude Include="DrawableComponent.hpp" />
+    <ClInclude Include="DrawableEntity.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="EngineClock.hpp" />
     <ClInclude Include="EngineGlobalVariables.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="FPSComponent.hpp" />
-    <ClInclude Include="KeyboardComponent.hpp" />
+    <ClInclude Include="InputComponent.hpp" />
+    <ClInclude Include="InputEventHandler.hpp" />
     <ClInclude Include="MainEntry.h" />
     <ClInclude Include="EngineException.hpp" />
     <ClInclude Include="EngineTime.hpp" />
@@ -148,15 +154,15 @@
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="Model.hpp" />
     <ClInclude Include="ModelMaterial.hpp" />
-    <ClInclude Include="MouseComponent.hpp" />
     <ClInclude Include="Node.hpp" />
     <ClInclude Include="MainPassConstantBuffer.hpp" />
+    <ClInclude Include="Observer.hpp" />
     <ClInclude Include="RenderingEngine.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RTTI.hpp" />
-    <ClInclude Include="ServiceProvider.hpp" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="StringHelper.hpp" />
+    <ClInclude Include="TransformCameraComponent.hpp" />
     <ClInclude Include="VectorHelper.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,10 +170,19 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DirectX11Helper.cpp" />
     <ClCompile Include="DrawableComponent.cpp" />
+    <ClCompile Include="DrawableEntity.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineClock.cpp" />
+    <ClCompile Include="EngineGlobalVariables.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
-    <ClCompile Include="KeyboardComponent.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="InputEventHandler.cpp" />
     <ClCompile Include="MainEntry.cpp" />
     <ClCompile Include="EngineException.cpp" />
     <ClCompile Include="EngineTime.cpp" />
@@ -175,11 +190,22 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelMaterial.cpp" />
-    <ClCompile Include="MouseComponent.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="RenderingEngine.cpp" />
-    <ClCompile Include="ServiceProvider.cpp" />
     <ClCompile Include="StringHelper.cpp" />
+    <ClCompile Include="TransformCameraComponent.cpp" />
+    <ClCompile Include="UpdatePerFrameBuffersComponent.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="UpdatePerFrameBuffersComponent.hpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="VectorHelper.cpp" />
   </ItemGroup>
   <ItemGroup>

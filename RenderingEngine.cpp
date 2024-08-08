@@ -2,9 +2,11 @@
 #include "RenderingEngine.hpp"
 #include "EngineException.hpp"
 #include "FPSComponent.hpp"
-#include "KeyboardComponent.hpp"
-#include "MouseComponent.hpp"
+#include "InputComponent.hpp"
+#include "TransformCameraComponent.hpp"
 #include "Camera.hpp"
+#include "DrawableEntity.hpp"
+#include "UpdatePerFrameBuffersComponent.hpp"
 #include "Node.hpp"
 #include "DirectX11Helper.hpp"
 #include "Model.hpp"
@@ -25,16 +27,6 @@ namespace RenderingEngine
 	{
 		using namespace Library;
 
-
-		m_components.emplace_back(std::make_unique<FPSComponent>(*this));
-		m_serviceProvider.AddService(((FPSComponent*)m_components[0].get())->TypeIdClass(), (void*)m_components[0].get());
-		m_components.emplace_back(std::make_unique<KeyboardComponent>(*this));
-		m_serviceProvider.AddService(((KeyboardComponent*)m_components[1].get())->TypeIdClass(), (void*)m_components[1].get());
-		m_components.emplace_back(std::make_unique<MouseComponent>(*this));
-		m_serviceProvider.AddService(((MouseComponent*)m_components[2].get())->TypeIdClass(), (void*)m_components[2].get());
-		m_components.emplace_back(std::make_unique<Camera>(*this));
-		m_serviceProvider.AddService(((Camera*)m_components[3].get())->TypeIdClass(), (void*)m_components[3].get());
-
 		std::string lv_modelName{};
 		while (m_modelNamesFile >> lv_modelName) {
 			std::string lv_modelFullPath{ EngineGlobalVariables::lv_modelsFolderPath + lv_modelName + "/gltf/" + lv_modelName + ".gltf" };
@@ -42,26 +34,42 @@ namespace RenderingEngine
 			m_models.emplace(std::move(lv_modelName), std::move(lv_model));
 		}
 
+		m_inputEventHandler = InputEventHandler{};
+
+		std::shared_ptr<Camera> lv_mainCamera = std::make_shared<Camera>(*GetEngine());
+
+		std::shared_ptr<InputComponent> lv_inputComponent =
+			std::make_shared<InputComponent>(*GetEngine());
+		
+		std::shared_ptr<TransformCameraComponent> lv_transformCameraComponent =
+			std::make_shared<TransformCameraComponent>(*GetEngine(), lv_mainCamera);
+		m_inputEventHandler.AddObservers(lv_transformCameraComponent.get());
+		std::unique_ptr<Entity> lv_inputEntity = std::make_unique<Entity>();
+		lv_inputEntity->AddComponent(lv_inputComponent);
+		lv_inputEntity->AddComponent(lv_transformCameraComponent);
+		m_entities.push_back(std::move(lv_inputEntity));
+
+
+		std::shared_ptr<FPSComponent> lv_fpsComponent = std::make_shared<FPSComponent>(*GetEngine());
+		std::unique_ptr<DrawableEntity> lv_fpsEntity = std::make_unique<DrawableEntity>();
+		lv_fpsEntity->AddComponent(lv_fpsComponent);
+		m_entities.push_back(std::move(lv_fpsEntity));
+
+
+		std::shared_ptr<UpdatePerFrameBuffersComponent> lv_updatePerFrameBuffersComponent =
+			std::make_shared<UpdatePerFrameBuffersComponent>(*GetEngine(), lv_mainCamera);
 		for (auto& l_model : m_models) {
+			std::unique_ptr<DrawableEntity> lv_modelEntity = std::make_unique<DrawableEntity>();
+			lv_modelEntity->AddComponent(lv_updatePerFrameBuffersComponent);
 			for (auto& l_mesh : l_model.second.GetMeshes()) {
-				m_components.emplace_back(std::make_unique<Node>(*this, DirectX::XMFLOAT3{}, l_mesh.get()));
+				std::shared_ptr<Node> lv_nodeComponent = std::make_shared<Node>(*this, DirectX::XMFLOAT3{}, l_mesh.get());
+				lv_modelEntity->AddComponent(lv_nodeComponent);
 			}
+			m_entities.push_back(std::move(lv_modelEntity));
 		}
 
-
-		//Create main pass constant buffer resource
-		{
-			DirectX11Helper::CreateConstantBuffer<ShaderStructures::MainPassConstantBuffer>(m_mainPassCBData,
-				&m_mainPassCB, Direct3DDevice(), 7 * 16 * sizeof(float), D3D11_USAGE_DYNAMIC,
-				D3D11_CPU_ACCESS_WRITE);
-
-
-			m_serviceProvider.AddService("mainPassCB", m_mainPassCB);
-		}
-
-		m_keyboard = (KeyboardComponent*)m_components[1].get();
-		m_mouse = (MouseComponent*)m_components[2].get();
-		m_camera = (Camera*)m_components[3].get();
+		
+		
 
 		Engine::Initialize();
 
@@ -72,7 +80,7 @@ namespace RenderingEngine
 		using namespace Library;
 		using namespace DirectX;
 
-		UpdateKeyboard(l_engineTime);
+		/*UpdateKeyboard(l_engineTime);
 		m_camera->UpdateViewMatrix();
 		UpdateMainPassConstantBuffer(l_engineTime);
 
@@ -104,7 +112,7 @@ namespace RenderingEngine
 
 		}
 
-		Direct3DDeviceContext()->Unmap(m_mainPassCB, 0);
+		Direct3DDeviceContext()->Unmap(m_mainPassCB, 0);*/
 
 
 		Library::Engine::Update(l_engineTime);
@@ -127,7 +135,7 @@ namespace RenderingEngine
 
 	void ZRenderingEngine::UpdateMainPassConstantBuffer(const Library::EngineTime& l_engineTime)
 	{
-		using namespace DirectX;
+		/*using namespace DirectX;
 
 		XMMATRIX view = m_camera->GetView();
 		XMMATRIX proj = m_camera->GetProj();
@@ -152,7 +160,7 @@ namespace RenderingEngine
 		m_mainPassCBData.NearZ = 1.0f;
 		m_mainPassCBData.FarZ = 10000.0f;
 		m_mainPassCBData.TotalTime = l_engineTime.TotalEngineTimeSeconds().count();
-		m_mainPassCBData.DeltaTime = l_engineTime.ElapsedEngineTimeSeconds().count();
+		m_mainPassCBData.DeltaTime = l_engineTime.ElapsedEngineTimeSeconds().count();*/
 	}
 
 
@@ -161,7 +169,7 @@ namespace RenderingEngine
 		using namespace Library;
 		using namespace DirectX;
 
-		const float dt = l_engineTime.ElapsedEngineTimeSeconds().count();
+		/*const float dt = l_engineTime.ElapsedEngineTimeSeconds().count();
 		const float lv_multiplier{ 10.f };
 
 
@@ -186,6 +194,6 @@ namespace RenderingEngine
 
 		if (true == m_keyboard->IsKeyDown(Keys::A) || true == m_keyboard->IsKeyHeldDown(Keys::A)) {
 			m_camera->Strafe(-lv_multiplier * dt);
-		}
+		}*/
 	}
 }

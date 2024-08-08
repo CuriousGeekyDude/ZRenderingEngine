@@ -10,6 +10,7 @@ namespace Library
 	class Camera;
 	class Engine;
 	class EngineTime;
+	class KeyboardComponent;
 
 
 	enum class MouseButtons
@@ -34,7 +35,7 @@ namespace Library
 	public:
 		static DirectX::Mouse* Mouse();
 
-		explicit MouseComponent(Engine& game, MouseModes mode = MouseModes::Relative);
+		explicit MouseComponent(Engine& game, Camera* l_camera, KeyboardComponent* l_keyboard,MouseModes mode = MouseModes::Relative);
 		MouseComponent(const MouseComponent&) = delete;
 		MouseComponent(MouseComponent&&) = default;
 		MouseComponent& operator=(const MouseComponent&) = delete;
@@ -73,5 +74,6 @@ namespace Library
 		DirectX::Mouse::State m_lastState{};
 
 		Camera* m_camera{};
+		KeyboardComponent* m_keyboard{};
 	};
 }
