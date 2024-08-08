@@ -8,10 +8,11 @@
 #include "Engine.hpp"
 #include "EngineException.hpp"
 #include "Common.hpp"
-#include "DrawableComponent.hpp"
-#include "Component.hpp"
+#include "Entity.hpp"
 #include "directxtk/Keyboard.h"
 #include "directxtk/Mouse.h"
+#include "DrawableEntity.hpp"
+#include "EngineGlobalVariables.hpp"
 
 
 namespace Library
@@ -42,7 +43,7 @@ namespace Library
 	ID3D11DeviceContext1* Engine::Direct3DDeviceContext() const { return m_direct3DDeviceContext; }
 	bool Engine::DepthBufferEnabled() const { return m_depthStencilBufferEnabled; }
 	bool Engine::IsFullScreen() const { return m_isFullScreen; }
-	const std::vector<std::unique_ptr<Component>>& Engine::GetComponents() const { return m_components; }
+	const std::vector<std::unique_ptr<Entity>>& Engine::GetEntities() const { return m_entities; }
 	const D3D11_TEXTURE2D_DESC& Engine::BackBufferDesc() const { return m_backbufferDesc; }
 	const D3D11_VIEWPORT& Engine::Viewport() const { return m_viewport; }
 
@@ -160,27 +161,25 @@ namespace Library
 
 	void Engine::Initialize()
 	{
-		for (auto& l_component : m_components) {
-			l_component->Initialize();
+		for (auto& l_entity : m_entities) {
+			l_entity->Initialize();
 		}
 	}
 
 	void Engine::Update(const EngineTime& l_engineTime)
 	{
-		for (auto& l_component : m_components) {
-			if (true == l_component->IsEnabled()) {
-				l_component->Update(l_engineTime);
-			}
+		EngineGlobalVariables::lv_UpdatePerFrameConstantBuffers = true;
+		for (auto& l_entity : m_entities) {
+			l_entity->Update(l_engineTime);
 		}
 	}
 
 	void Engine::Draw(const EngineTime& l_engineTime)
 	{
-		for (auto& l_component : m_components) {
-			DrawableComponent* lv_drawableComponent =
-				l_component->As<DrawableComponent>();
-			if (nullptr != lv_drawableComponent && true == lv_drawableComponent->IsVisible()) {
-				lv_drawableComponent->Draw(l_engineTime);
+		for (auto& l_entity : m_entities) {
+			DrawableEntity* lv_drawableEnity = l_entity->As<DrawableEntity>();
+			if (nullptr != lv_drawableEnity) {
+				lv_drawableEnity->Draw(l_engineTime);
 			}
 		}
 	}

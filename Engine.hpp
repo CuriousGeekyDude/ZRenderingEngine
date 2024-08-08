@@ -8,13 +8,11 @@
 #include <d3d11_1.h>
 #include "EngineClock.hpp"
 #include "EngineTime.hpp"
-#include "ServiceProvider.hpp"
-#include "Component.hpp"
 #include "InputEventHandler.hpp"
 
 namespace Library
 {
-	class Component;
+	class Entity;
 
 	class Engine
 	{
@@ -47,7 +45,7 @@ namespace Library
 		ID3D11DeviceContext1* Direct3DDeviceContext() const;
 		bool DepthBufferEnabled() const;
 		bool IsFullScreen() const;
-		const std::vector<std::unique_ptr<Component>>& GetComponents() const;
+		const std::vector<std::unique_ptr<Entity>>& GetEntities() const;
 		const D3D11_TEXTURE2D_DESC& BackBufferDesc() const;
 		const D3D11_VIEWPORT& Viewport() const;
 
@@ -100,7 +98,7 @@ namespace Library
 		InputEventHandler m_inputEventHandler{};
 
 
-		std::vector<std::unique_ptr<Component>> m_components{};
+		std::vector<std::unique_ptr<Entity>> m_entities{};
 
 		
 
