@@ -59,7 +59,7 @@ namespace Library
 
 		//Compiling shaders and creating shader objects
 		{
-			CreateVsPsShaders(L"C:/Users/farhan/source/repos/Z/ZRenderingEngine/Content/Shaders/Triangle.hlsl");
+			CreateVsPsShaders(L"Content/Shaders/Triangle.hlsl");
 		}
 
 
