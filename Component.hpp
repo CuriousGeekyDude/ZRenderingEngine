@@ -2,6 +2,7 @@
 
 
 #include "RTTI.hpp"
+#include "InputEventHandler.hpp"
 
 namespace Library
 {
@@ -16,10 +17,7 @@ namespace Library
 	public:
 
 		Component(Engine& l_engine);
-		Component(const Component& l_component) : m_serviceProvider(l_component.m_serviceProvider)
-		{
-			m_enabled = l_component.m_enabled;
-		}
+		Component(const Component& l_component);
 
 		Component& operator=(const Component&) = delete;
 		
@@ -35,7 +33,5 @@ namespace Library
 	protected:
 
 		bool m_enabled{true};
-		const ServiceProvider& m_serviceProvider;
-
 	};
 }

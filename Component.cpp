@@ -9,7 +9,9 @@ namespace Library
 	RTTI_DEFINITIONS(Component);
 
 	Component::Component(Engine& l_engine) :
-	 m_enabled(true), m_serviceProvider(l_engine.GetServiceProvider()) {}
+	 m_enabled(true) {}
+
+	Component::Component(const Component& l_component) = default;
 
 	Component::~Component(){}
 
